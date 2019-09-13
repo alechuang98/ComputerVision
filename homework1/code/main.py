@@ -14,6 +14,6 @@ for r in range(lenR):
         rightsideLeft[r, lenC - c - 1, :] = image[r, c, :]
         diagonallyMirrored[c, r, :] = image[r, c, :]
 
-cv2.imwrite("upside-down lena.bmp", upsideDown)
-cv2.imwrite("right-side-left lena.bmp", rightsideLeft)
-cv2.imwrite("diagonally mirrored lena.bmp", diagonallyMirrored)
+cv2.imwrite("1_upside-down lena.bmp", upsideDown)
+cv2.imwrite("2_right-side-left lena.bmp", rightsideLeft)
+cv2.imwrite("3_diagonally mirrored lena.bmp", diagonallyMirrored)
