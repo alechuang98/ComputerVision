@@ -1,3 +1,10 @@
+<center><font size="30"><b>Computer Vision HW3</b></font></center>
+<center><span style="font-weight:light; color:#7a7a7a; font-family:Merriweather;">by b06902034 </span><span style="font-weight:light; color:#7a7a7a; font-family:Noto Serif CJK SC;">黃柏諭</span></center>
+---
+
+### Code
+
+```python
 import cv2
 import numpy as np
 
@@ -57,3 +64,29 @@ cv2.imwrite("2_erosion.bmp", ero)
 cv2.imwrite("3_opening.bmp", dilation(ero, _35553))
 cv2.imwrite("4_closing.bmp", erosion(dil, _35553))
 cv2.imwrite("5_hitmiss.bmp", hitMiss(binary, _J, _K))
+```
+
+
+
+### Dilation
+
+<img src="/home/alec/Documents/ComputerVision/homework4/code/1_dilation.bmp" style="zoom:50%;" />
+
+
+
+### Erosion
+
+<img src="/home/alec/Documents/ComputerVision/homework4/code/2_erosion.bmp" style="zoom:50%;" />
+
+### Opening
+
+<img src="/home/alec/Documents/ComputerVision/homework4/code/3_opening.bmp" style="zoom:50%;" />
+
+### Closing
+
+<img src="/home/alec/Documents/ComputerVision/homework4/code/4_closing.bmp" style="zoom:50%;" />
+
+
+### Hit and Miss
+
+<img src="/home/alec/Documents/ComputerVision/homework4/code/5_hitmiss.bmp" style="zoom:50%;" />
