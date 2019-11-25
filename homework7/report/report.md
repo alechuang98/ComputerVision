@@ -1,10 +1,11 @@
-<center><font size="30"><b>Computer Vision Homework6</b></font></center>
+<center><font size="20"><b>Computer Vision Homework7</b></font></center>
 <center><span style="font-weight:light; color:#7a7a7a; font-family:Merriweather;">by b06902034 </span><span style="font-weight:light; color:#7a7a7a; font-family:Noto Serif CJK SC;">黃柏諭</span></center>
+
 ---
 
 ### Result
 
-<img src="/home/alec/Documents/ComputerVision/homework6/report/yokoi.png" style="zoom:67%;" />
+<img src="/home/alec/Documents/ComputerVision/homework7/code/1_thinning.bmp" style="zoom: 900%;" />
 
 ### Code
 
@@ -55,16 +56,43 @@ def getYokoiMatrix(img):
                            h(n[0], n[4], n[5], n[1])])
     return res
 
+def getPairRelation(img, yokoi):
+    delta = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    res = np.zeros(yokoi.shape)
+    for i, j in np.ndindex(yokoi.shape):
+        if yokoi[i, j] != 1:
+            continue
+        for d in delta:
+            if 0 <= i + d[0] < yokoi.shape[0] and 0 <= j + d[1] < yokoi.shape[1]\
+                and yokoi[i + d[0], j + d[1]] == 1:
+                res[i, j] = 1
+    return res
+
+def connectShrink(img):
+    flg = True
+    res = np.copy(img)
+    yokoi = getYokoiMatrix(img)
+    pair_relation = getPairRelation(img, yokoi)
+    for i, j in np.ndindex(res.shape):
+        if pair_relation[i, j] > 0:
+            n = getNeighborhood(res, i, j)
+            count = f([h(n[0], n[1], n[6], n[2]),\
+                       h(n[0], n[2], n[7], n[3]),\
+                       h(n[0], n[3], n[8], n[4]),\
+                       h(n[0], n[4], n[5], n[1])])
+            if count == 1:
+                res[i, j] = 0
+                flg = False
+    return flg, res
+
 image = cv2.imread("lena.bmp", cv2.IMREAD_GRAYSCALE)
 binary = (image >= 128) * np.full(image.shape, 255)
-ans = getYokoiMatrix(downSample(binary)).tolist()
-with open("Output.txt", "w") as fp: 
-    for i in range(len(ans)):
-        for j in range(len(ans[i])):
-            if ans[i][j] == 0:
-                fp.write(" ")
-            else:
-                fp.write(str(int(ans[i][j])))
-        fp.write("\n")
+thinning = downSample(binary)
+cv2.imwrite("f_thinning.bmp", thinning)
+flg = False
+iterate = 0
+while flg == False:
+    flg, thinning = connectShrink(thinning)
+cv2.imwrite("1_thinning.bmp", thinning)
 ```
 
